@@ -1,0 +1,22 @@
+{
+  "name": "mark",
+  "main": "./lib/index",
+  "author": "Michael Kleehammer <michael@kleehammer.com>",
+  "version": "0.0.0",
+  "description": "Provides a buffer mark supporting select-to-mark and goto-mark",
+  "activationEvents": [
+    "mark:toggle",
+    "mark:clear-mark",
+    "mark:goto-mark",
+    "mark:select-to-mark",
+    "mark:swap"
+  ],
+  "repository": "https://github.com/mkleehammer/atom-mark",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "emissary": "~1.2.0"
+  }
+}

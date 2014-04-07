@@ -1,0 +1,6 @@
+
+'.workspace .editor':
+  'cmd-k cmd-k' : 'mark:toggle'
+  'cmd-k cmd-g' : 'mark:clear-mark'
+  'cmd-k space' : 'mark:goto-mark'
+  'cmd-k cmd-a' : 'mark:select-to-mark'
