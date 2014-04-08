@@ -4,7 +4,7 @@ Provides a single "mark" per editor with the ability select the text from the
 mark to the cursor and to go to the mark, similar to marks in other packages.
 
 To toggle the mark at the current position (not just line, but column), use Mark:Toggle.  The
-mark appears as a dot in the gutter.
+mark appears as a push-pin in the gutter.
 
 ![](http://mkleehammer.github.com/atom-mark/images/mark.png)
 
