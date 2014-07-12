@@ -8,9 +8,8 @@ class Mark
   constructor: (editorView) ->
     {@editor, @gutter} = editorView
 
-    @marker = undefined
+    @decoration = undefined
 
-    @subscribe editorView, 'editor:display-updated', => @updateGutter()
     @subscribe @editor, 'destroyed', => @unsubscribe()
     @subscribeToCommand editorView, 'mark:toggle', => @toggle()
     @subscribeToCommand editorView, 'mark:clear-mark', => @clearMark()
@@ -18,31 +17,26 @@ class Mark
     @subscribeToCommand editorView, 'mark:goto-mark', => @gotoMark()
     @subscribeToCommand editorView, 'mark:swap', => @swapWithMark()
 
-  updateGutter: ->
-    if @marker?
-      @gutter.addClassToLine(@marker.getHeadBufferPosition().row, 'marked')
-
   createMark: (point) ->
-    @marker = @editor.markBufferPosition(point)
-    @gutter.addClassToLine(point.row, 'marked')
+    marker = @editor.markBufferPosition(point)
+    @decoration = @editor.decorateMarker(marker, { type: 'gutter', class: 'marked' })
 
-    @subscribe @marker, 'changed', ({ isValid }) =>
+    @subscribe marker, 'changed', ({ isValid }) =>
       if not isValid
-        @unsubscribe(@marker)
-        @marker.destroy()
-        @marker = undefined
+        @unsubscribe(@decoration.getMarker())
+        @decoration.getMarker().destroy()
+        @decoration = undefined
 
   clearMark: () ->
-    if @marker
-      @gutter.removeClassFromLine(@marker.getHeadBufferPosition().row, 'marked')
-      @marker.destroy()
-      @marker = undefined
+    if @decoration
+      @decoration.getMarker().destroy()
+      @decoration = undefined
 
   toggle: ->
     if not @gutter.isVisible
       return
 
-    markPoint = @marker?.getHeadBufferPosition()
+    markPoint   = @decoration?.getMarker().getHeadBufferPosition()
     cursorPoint = @editor.getCursorBufferPosition()
 
     if markPoint?
@@ -52,21 +46,20 @@ class Mark
       @createMark(cursorPoint)
 
   selectToMark: ->
-    if @marker?
-      markPoint   = @marker.getHeadBufferPosition()
+    if @decoration
+      markPoint   = @decoration?.getMarker().getHeadBufferPosition()
       cursorPoint = @editor.getCursorBufferPosition()
       if not cursorPoint.isEqual(markPoint)
         @editor.setSelectedBufferRange([markPoint, cursorPoint])
 
   gotoMark: ->
-    if @marker?
-      @editor.setCursorBufferPosition(@marker.getHeadBufferPosition())
+    if @decoration
+      @editor.setCursorBufferPosition(@decoration.getMarker().getHeadBufferPosition())
 
   swapWithMark: ->
-    if @marker?
+    if @decoration
       cursorPoint = @editor.getCursorBufferPosition()
-      markPoint   = @marker.getHeadBufferPosition()
+      markPoint   = @decoration.getMarker().getHeadBufferPosition()
       if not cursorPoint.isEqual(markPoint)
-        @gutter.removeClassFromLine(markPoint.row, 'marked')
-        @marker.setHeadBufferPosition(cursorPoint)
+        @decoration.getMarker().setHeadBufferPosition(cursorPoint)
         @editor.setCursorBufferPosition(markPoint)
