@@ -19,7 +19,16 @@ Finally, you can jump to the mark using Mark:Goto Mark.
 
 Keybindings for all commands:
 
-* `cmd-k cmd-k` : mark:toggle
-* `cmd-k cmd-a` : mark:select-to-mark
-* `cmd-k cmd-g` : mark:clear-mark
-* `cmd-k space` : mark:goto-mark
+Mac OS X:
+
+* <kbd>cmd-k cmd-k</kbd> : mark:toggle
+* <kbd>cmd-k cmd-a</kbd> : mark:select-to-mark
+* <kbd>cmd-k cmd-g</kbd> : mark:clear-mark
+* <kbd>cmd-k space</kbd> : mark:goto-mark
+
+Linux/Windows
+
+* <kbd>ctrl-k ctrl-k</kbd> : mark:toggle
+* <kbd>ctrl-k ctrl-a</kbd> : mark:select-to-mark
+* <kbd>ctrl-k ctrl-g</kbd> : mark:clear-mark
+* <kbd>ctrl-k space</kbd>  : mark:goto-mark
