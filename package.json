@@ -4,13 +4,15 @@
   "author": "Michael Kleehammer <michael@kleehammer.com>",
   "version": "1.2.0",
   "description": "Provides a buffer mark supporting select-to-mark and goto-mark",
-  "activationEvents": [
-    "mark:toggle",
-    "mark:clear-mark",
-    "mark:goto-mark",
-    "mark:select-to-mark",
-    "mark:swap"
-  ],
+  "activationCommands": {
+    "atom-text-editor": [
+      "mark:toggle",
+      "mark:clear-mark",
+      "mark:goto-mark",
+      "mark:select-to-mark",
+      "mark:swap"
+    ]
+  },
   "repository": "https://github.com/mkleehammer/atom-mark",
   "license": "MIT",
   "engines": {
