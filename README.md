@@ -1,5 +1,7 @@
 # mark package
 
+**Original package by [@mkleehammer](https://github.com/mkleehammer)**
+
 Provides a single "mark" per editor with the ability select the text from the
 mark to the cursor and to go to the mark, similar to marks in other editors.
 
