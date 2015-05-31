@@ -8,11 +8,11 @@ mark to the cursor and to go to the mark, similar to marks in other editors.
 To toggle the mark at the current position (not just line, but column), use Mark:Toggle.  The
 mark appears as a push-pin in the gutter.
 
-![](http://mkleehammer.github.com/atom-mark/images/mark.png)
+![](http://olmokramer.github.io/atom-mark/images/mark.png)
 
 To select all text between the cursor and the mark, use Mark:Select To Mark.
 
-![](http://mkleehammer.github.com/atom-mark/images/select.png)
+![](http://olmokramer.github.io/atom-mark/images/select.png)
 
 The mark can be cleared by toggling the mark at the same position, but Mark:Clear Mark
 can be used to clear it from anywhere.
