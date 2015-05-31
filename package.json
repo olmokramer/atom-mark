@@ -2,7 +2,7 @@
   "name": "mark",
   "main": "./lib/index",
   "author": "Michael Kleehammer <michael@kleehammer.com>",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Provides a buffer mark supporting select-to-mark and goto-mark",
   "activationCommands": {
     "atom-text-editor": [
