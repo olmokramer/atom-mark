@@ -51,7 +51,7 @@ class Mark
   selectToMark: ->
     markPoint = @getMarkPoint()
     cursorPoint = @getCursorPoint()
-    return if not markpoint or cursorPoint.isEqual markPoint
+    return if not markPoint or cursorPoint.isEqual markPoint
     @editor.setSelectedBufferRange [markPoint, cursorPoint]
 
   goToMark: ->
@@ -62,7 +62,7 @@ class Mark
   swapWithMark: ->
     markPoint = @getMarkPoint()
     cursorPoint = @getCursorPoint()
-    return if not markpoint or cursorPoint.isEqual markPoint
+    return if not markPoint or cursorPoint.isEqual markPoint
     @marker.setHeadBufferPosition cursorPoint
     @editor.setCursorBufferPosition markPoint
 
