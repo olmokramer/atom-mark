@@ -7,7 +7,7 @@
         { 'label': 'Toggle', 'command': 'mark:toggle' },
         { 'label': 'Select To Mark', 'command': 'mark:select-to-mark' },
         { 'label': 'Clear', 'command': 'mark:clear' },
-        { 'label': 'Goto Mark', 'command': 'mark:goto-mark' },
+        { 'label': 'Go to Mark', 'command': 'mark:go-to-mark' },
         { 'label': 'Swap With Mark', 'command': 'mark:swap' }
       ]
     ]
