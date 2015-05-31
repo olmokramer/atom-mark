@@ -1,65 +1,73 @@
+'use strict'
+{CompositeDisposable} = require 'atom'
 
-{Subscriber} = require 'emissary'
-
-module.exports=
+module.exports =
 class Mark
-  Subscriber.includeInto(this)
+  constructor: (@editor) ->
+    @disposed = false
+    @disposables = new CompositeDisposable()
 
-  constructor: (editorView) ->
-    {@editor, @gutter} = editorView
+    editorView = atom.views.getView @editor
+    @disposables.add atom.commands.add editorView,
+      'mark:toggle': => @toggle()
+      'mark:clear-mark': => @clearMark()
+      'mark:select-to-mark': => @selectToMark()
+      'mark:go-to-mark': => @goToMark()
+      'mark:goto-mark': => @goToMark()
+      'mark:swap': => @swapWithMark()
 
-    @decoration = undefined
+    @disposables.add @editor.onDidDestroy =>
+      @dispose()
 
-    @subscribe @editor, 'destroyed', => @unsubscribe()
-    @subscribeToCommand editorView, 'mark:toggle', => @toggle()
-    @subscribeToCommand editorView, 'mark:clear-mark', => @clearMark()
-    @subscribeToCommand editorView, 'mark:select-to-mark', => @selectToMark()
-    @subscribeToCommand editorView, 'mark:goto-mark', => @gotoMark()
-    @subscribeToCommand editorView, 'mark:swap', => @swapWithMark()
+  dispose: ->
+    return if @disposed
+    @disposed = true
+    @disposables.dispose()
+    @clearMark()
+    [@editor, @marker, @disposables] = []
 
   createMark: (point) ->
-    marker = @editor.markBufferPosition(point)
-    @decoration = @editor.decorateMarker(marker, { type: 'gutter', class: 'marked' })
+    @clearMark()
 
-    @subscribe marker, 'changed', ({ isValid }) =>
-      if not isValid
-        @unsubscribe(@decoration.getMarker())
-        @decoration.getMarker().destroy()
-        @decoration = undefined
+    @marker = @editor.markBufferPosition point
+    @editor.decorateMarker @marker,
+      type: 'line-number'
+      class: 'marked'
 
-  clearMark: () ->
-    if @decoration
-      @decoration.getMarker().destroy()
-      @decoration = undefined
+    @marker.onDidChange ({isValid}) =>
+      @clearMark() unless isValid
+
+  clearMark: ->
+    @marker?.destroy()
+    @marker = null
 
   toggle: ->
-    if not @gutter.isVisible
-      return
-
-    markPoint   = @decoration?.getMarker().getHeadBufferPosition()
-    cursorPoint = @editor.getCursorBufferPosition()
-
-    if markPoint?
+    return unless @editor.gutterWithName('line-number').visible
+    if @marker
       @clearMark()
-
-    if not markPoint or not cursorPoint.isEqual(markPoint)
-      @createMark(cursorPoint)
+    else
+      @createMark @getCursorPoint()
 
   selectToMark: ->
-    if @decoration
-      markPoint   = @decoration?.getMarker().getHeadBufferPosition()
-      cursorPoint = @editor.getCursorBufferPosition()
-      if not cursorPoint.isEqual(markPoint)
-        @editor.setSelectedBufferRange([markPoint, cursorPoint])
+    markPoint = @getMarkPoint()
+    cursorPoint = @getCursorPoint()
+    return if not markpoint or cursorPoint.isEqual markPoint
+    @editor.setSelectedBufferRange [markPoint, cursorPoint]
 
-  gotoMark: ->
-    if @decoration
-      @editor.setCursorBufferPosition(@decoration.getMarker().getHeadBufferPosition())
+  goToMark: ->
+    markPoint = @getMarkPoint()
+    return unless markPoint?
+    @editor.setCursorBufferPosition markPoint
 
   swapWithMark: ->
-    if @decoration
-      cursorPoint = @editor.getCursorBufferPosition()
-      markPoint   = @decoration.getMarker().getHeadBufferPosition()
-      if not cursorPoint.isEqual(markPoint)
-        @decoration.getMarker().setHeadBufferPosition(cursorPoint)
-        @editor.setCursorBufferPosition(markPoint)
+    markPoint = @getMarkPoint()
+    cursorPoint = @getCursorPoint()
+    return if not markpoint or cursorPoint.isEqual markPoint
+    @marker.setHeadBufferPosition cursorPoint
+    @editor.setCursorBufferPosition markPoint
+
+  getMarkPoint: ->
+    @marker?.getHeadBufferPosition()
+
+  getCursorPoint: ->
+    @editor.getCursorBufferPosition()

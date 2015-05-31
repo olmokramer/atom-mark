@@ -1,8 +1,12 @@
-
+'use strict'
+{CompositeDisposable} = require 'atom'
 Mark = require './mark'
 
 module.exports =
   activate: ->
-    atom.workspaceView.eachEditorView (editor) ->
-      if editor.attached and editor.getPane()?
-        new Mark(editor)
+    @disposables = new CompositeDisposable()
+    @disposables.add atom.workspace.observeTextEditors (editor) =>
+      @disposables.add new Mark(editor)
+
+  deactivate: ->
+    @disposables.dispose()
