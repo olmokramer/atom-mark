@@ -13,12 +13,9 @@
       "mark:swap"
     ]
   },
-  "repository": "https://github.com/mkleehammer/atom-mark",
+  "repository": "https://github.com/olmokramer/atom-mark",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
-  },
-  "dependencies": {
-    "emissary": "~1.2.0"
+    "atom": ">0.200.0"
   }
 }
