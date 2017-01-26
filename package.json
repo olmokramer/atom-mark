@@ -3,12 +3,12 @@
   "main": "./lib/index",
   "author": "Michael Kleehammer <michael@kleehammer.com>",
   "version": "1.3.3",
-  "description": "Provides a buffer mark supporting select-to-mark and goto-mark",
+  "description": "Provides a buffer mark supporting select-to-mark and go-to-mark",
   "activationCommands": {
     "atom-text-editor": [
       "mark:toggle",
       "mark:clear-mark",
-      "mark:goto-mark",
+      "mark:go-to-mark",
       "mark:select-to-mark",
       "mark:swap"
     ]
