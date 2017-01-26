@@ -26,11 +26,11 @@ Mac OS X:
 * <kbd>cmd-k cmd-k</kbd> : mark:toggle
 * <kbd>cmd-k cmd-a</kbd> : mark:select-to-mark
 * <kbd>cmd-k cmd-g</kbd> : mark:clear-mark
-* <kbd>cmd-k space</kbd> : mark:goto-mark
+* <kbd>cmd-k space</kbd> : mark:go-to-mark
 
 Linux/Windows
 
 * <kbd>ctrl-k ctrl-k</kbd> : mark:toggle
 * <kbd>ctrl-k ctrl-a</kbd> : mark:select-to-mark
 * <kbd>ctrl-k ctrl-g</kbd> : mark:clear-mark
-* <kbd>ctrl-k space</kbd>  : mark:goto-mark
+* <kbd>ctrl-k space</kbd>  : mark:go-to-mark
