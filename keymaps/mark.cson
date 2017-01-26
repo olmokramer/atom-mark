@@ -2,11 +2,11 @@
 '.platform-darwin atom-text-editor':
   'cmd-k cmd-k' : 'mark:toggle'
   'cmd-k cmd-g' : 'mark:clear-mark'
-  'cmd-k space' : 'mark:goto-mark'
+  'cmd-k space' : 'mark:go-to-mark'
   'cmd-k cmd-a' : 'mark:select-to-mark'
 
 '.platform-linux atom-text-editor, .platform-windows atom-text-editor':
   'ctrl-k ctrl-k' : 'mark:toggle'
   'ctrl-k ctrl-g' : 'mark:clear-mark'
-  'ctrl-k space'  : 'mark:goto-mark'
+  'ctrl-k space'  : 'mark:go-to-mark'
   'ctrl-k ctrl-a' : 'mark:select-to-mark'
