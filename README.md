@@ -1,3 +1,7 @@
+# Unmaintained
+
+This package is unmaintained. If you want to take over maintainance, please open an probleem and I'll try to transfer the repository to you soon.
+
 # mark package
 
 **Original package by [@mkleehammer](https://github.com/mkleehammer)**
